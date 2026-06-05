@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Tags -->
+  <title>VaniScribe | Indian Accent AI Voice Transcriber</title>
+  <meta name="description" content="Convert voice recordings and audio files into error-free text. Specially optimized for Indian accents, Hinglish, and regional terms using native Web Speech and Gemini AI.">
+  <meta name="keywords" content="speech to text, voice typing, indian accent transcriber, hinglish to text, audio transcription, voice recorder">
+  <meta name="author" content="VaniScribe Team">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="./styles.css">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Background decorative glows -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand-logo">
+        <div class="logo-icon-wrapper">
+          <i data-lucide="mic" class="logo-icon"></i>
+          <span class="logo-pulse"></span>
+        </div>
+        <div class="brand-text">
+          <h1>VaniScribe</h1>
+          <span class="sub-logo">वाणीScribe • Optimized for Indian Accents</span>
+        </div>
+      </div>
+      
+      <div class="header-actions">
+        <div class="engine-badge" id="engine-badge">
+          <span class="status-indicator online" id="status-indicator"></span>
+          <span class="badge-text" id="engine-indicator">Web Speech API (Free Mode)</span>
+        </div>
+        <button class="icon-btn" id="settings-btn" title="Settings">
+          <i data-lucide="settings"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard-grid">
+      
+      <!-- Left Column: Audio Input Controls -->
+      <section class="card input-card">
+        <div class="card-header">
+          <h2 class="card-title"><i data-lucide="volume-2"></i> Voice & Audio Source</h2>
+        </div>
+        
+        <!-- Toggle Tabs -->
+        <div class="tab-container">
+          <button class="tab-btn active" id="tab-record" data-tab="record">
+            <i data-lucide="mic"></i> Record Voice
+          </button>
+          <button class="tab-btn" id="tab-upload" data-tab="upload">
+            <i data-lucide="upload-cloud"></i> Upload Audio File
+          </button>
+        </div>
+
+        <!-- Language & Accent Configuration -->
+        <div class="config-group">
+          <label for="language-selector">Primary Language & Accent</label>
+          <div class="select-wrapper">
+            <select id="language-selector">
+              <optgroup label="English Accents">
+                <option value="en-IN" selected>English (India) - en-IN</option>
+                <option value="en-US">English (United States) - en-US</option>
+                <option value="en-GB">English (United Kingdom) - en-GB</option>
+              </optgroup>
+              <optgroup label="Indian Languages">
+                <option value="hi-IN">Hindi (हिन्दी) - hi-IN</option>
+                <option value="ta-IN">Tamil (தமிழ்) - ta-IN</option>
+                <option value="te-IN">Telugu (తెలుగు) - te-IN</option>
+                <option value="kn-IN">Kannada (ಕನ್ನಡ) - kn-IN</option>
+                <option value="ml-IN">Malayalam (മലയാളം) - ml-IN</option>
+                <option value="mr-IN">Marathi (मराठी) - mr-IN</option>
+                <option value="bn-IN">Bengali (বাংলা) - bn-IN</option>
+                <option value="gu-IN">Gujarati (ગુજરાતી) - gu-IN</option>
+                <option value="pa-IN">Punjabi (ਪੰਜਾਬੀ) - pa-IN</option>
+                <option value="ur-IN">Urdu (اردو) - ur-IN</option>
+              </optgroup>
+            </select>
+            <i data-lucide="chevron-down" class="select-chevron"></i>
+          </div>
+        </div>
+
+        <!-- Tab 1 Content: Live Recorder -->
+        <div class="tab-content active" id="content-record">
+          <div class="visualizer-wrapper">
+            <canvas id="visualizer-canvas"></canvas>
+            <div class="recording-timer" id="timer-display">00:00</div>
+          </div>
+          
+          <div class="record-actions">
+            <button class="record-btn" id="record-btn" aria-label="Start Recording">
+              <div class="btn-core">
+                <i data-lucide="mic" class="mic-icon"></i>
+              </div>
+              <span class="ripple ring-1"></span>
+              <span class="ripple ring-2"></span>
+              <span class="ripple ring-3"></span>
+            </button>
+            <span class="record-status-text" id="record-status-text">Click mic to start speaking</span>
+          </div>
+        </div>
+
+        <!-- Tab 2 Content: File Uploader -->
+        <div class="tab-content" id="content-upload">
+          <div class="dropzone" id="dropzone">
+            <input type="file" id="file-input" accept="audio/*" class="file-input">
+            <div class="dropzone-content">
+              <div class="upload-icon-wrapper">
+                <i data-lucide="file-audio" class="upload-icon"></i>
+              </div>
+              <p class="dropzone-text-primary">Drag & drop your audio file here</p>
+              <p class="dropzone-text-secondary">Supports MP3, WAV, M4A, OGG, WebM (Max 20MB)</p>
+              <button class="secondary-btn" id="browse-btn">Browse Files</button>
+            </div>
+            
+            <!-- File Info Preview -->
+            <div class="file-preview" id="file-preview" style="display: none;">
+              <i data-lucide="music" class="preview-icon"></i>
+              <div class="preview-details">
+                <span class="preview-name" id="preview-name">audio_message.mp3</span>
+                <span class="preview-size" id="preview-size">2.4 MB</span>
+              </div>
+              <button class="close-btn" id="clear-file-btn" title="Remove File">
+                <i data-lucide="x"></i>
+              </button>
+            </div>
+          </div>
+
+          <button class="primary-btn wide-btn" id="transcribe-file-btn" disabled>
+            <i data-lucide="sparkles"></i> Transcribe Audio File
+          </button>
+        </div>
+
+        <!-- Context Hints / Keywords -->
+        <div class="config-group" style="margin-top: 1.5rem;">
+          <label for="context-hints">
+            Context Hints / Spoken Names (Optional)
+            <span class="tooltip-trigger" title="Help the AI accurately spell local names, slang, abbreviations, or numbers typical to your context."><i data-lucide="info"></i></span>
+          </label>
+          <input type="text" id="context-hints" placeholder="e.g. Names: Nisarga, Rahul. Terms: Lakhs, Crores, Aadhaar, Dhaba">
+        </div>
+      </section>
+
+      <!-- Right Column: Transcription Output -->
+      <section class="card output-card">
+        <div class="card-header">
+          <div class="header-left">
+            <h2 class="card-title"><i data-lucide="file-text"></i> Live Transcript</h2>
+          </div>
+          <div class="header-right">
+            <span class="transcription-status" id="transcription-status">Engine: Ready</span>
+          </div>
+        </div>
+
+        <!-- Output Textbox Area -->
+        <div class="output-wrapper">
+          <textarea id="transcript-output" placeholder="Your voice transcript will appear here in real-time. You can edit this text directly..."></textarea>
+          
+          <!-- Processing Loader Overlay -->
+          <div class="loader-overlay" id="loader-overlay" style="display: none;">
+            <div class="spinner-wrapper">
+              <div class="spinner"></div>
+              <div class="spinner-glow"></div>
+            </div>
+            <p class="loader-title" id="loader-title">Transcribing Audio...</p>
+            <p class="loader-subtitle" id="loader-subtitle">Processing Indian speech nuances with Gemini AI</p>
+          </div>
+        </div>
+
+        <!-- Word / Character Counts -->
+        <div class="output-stats">
+          <div class="stat-item">
+            <span class="stat-value" id="word-count">0</span>
+            <span class="stat-label">Words</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value" id="char-count">0</span>
+            <span class="stat-label">Characters</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value" id="confidence-score">100%</span>
+            <span class="stat-label">Confidence</span>
+          </div>
+        </div>
+
+        <!-- Action Panel -->
+        <div class="action-grid">
+          <!-- Text Tools -->
+          <div class="action-group">
+            <h3><i data-lucide="sliders"></i> Smart Polish Tools</h3>
+            <div class="btn-row">
+              <button class="action-btn" id="polish-btn" disabled title="Refine grammar, spelling and remove filler words using Gemini AI">
+                <i data-lucide="sparkles"></i> AI Refine
+              </button>
+              <button class="action-btn" id="translate-btn" disabled title="Translate transcript to English using Gemini AI">
+                <i data-lucide="languages"></i> Translate
+              </button>
+              <button class="action-btn" id="speak-btn" title="Read text out loud with standard text-to-speech">
+                <i data-lucide="volume-2"></i> Read Aloud
+              </button>
+            </div>
+          </div>
+
+          <!-- Sharing & Downloads -->
+          <div class="action-group">
+            <h3><i data-lucide="download"></i> Export Options</h3>
+            <div class="btn-row">
+              <button class="action-btn secondary" id="copy-btn" title="Copy to clipboard">
+                <i data-lucide="copy"></i> Copy
+              </button>
+              <button class="action-btn secondary" id="download-txt-btn" disabled title="Download as Text File (.txt)">
+                <i data-lucide="file-output"></i> TXT
+              </button>
+              <button class="action-btn secondary" id="download-srt-btn" disabled title="Download as Subtitles (.srt)">
+                <i data-lucide="clapperboard"></i> SRT
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Settings Modal -->
+    <div class="modal-backdrop" id="settings-modal" style="display: none;">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>VaniScribe Settings</h2>
+          <button class="icon-btn close-btn" id="close-settings" title="Close Settings">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        
+        <div class="modal-body">
+          <!-- Gemini API Key Input -->
+          <div class="settings-group">
+            <label for="gemini-api-key">Gemini API Key</label>
+            <div class="input-password-wrapper">
+              <input type="password" id="gemini-api-key" placeholder="AIzaSy...">
+              <button class="icon-btn" id="toggle-api-visibility" title="Show/Hide Key">
+                <i data-lucide="eye"></i>
+              </button>
+            </div>
+            <p class="settings-help">
+              To unlock ultra-accurate, zero-error audio file uploads and advanced Indian Accent AI Refinement, insert a Gemini API Key. 
+              Get a free key instantly at <a href="https://aistudio.google.com/" target="_blank" rel="noopener">Google AI Studio</a>.
+            </p>
+          </div>
+
+          <!-- Model Choice -->
+          <div class="settings-group">
+            <label for="gemini-model-selector">Gemini Model</label>
+            <div class="select-wrapper">
+              <select id="gemini-model-selector">
+                <option value="gemini-2.0-flash" selected>Gemini 2.0 Flash (Fast & highly accurate)</option>
+                <option value="gemini-1.5-flash">Gemini 1.5 Flash (Standard)</option>
+                <option value="gemini-1.5-pro">Gemini 1.5 Pro (Extremely creative / detailed)</option>
+              </select>
+              <i data-lucide="chevron-down" class="select-chevron"></i>
+            </div>
+          </div>
+
+          <!-- Refinement Directives -->
+          <div class="settings-group">
+            <label for="custom-refinement-directives">Custom AI Directives</label>
+            <textarea id="custom-refinement-directives" placeholder="e.g. Ensure you expand abbreviations like INR to Rupees. Keep filler words like 'matlab' and 'accha' intact or remove them?"></textarea>
+            <p class="settings-help">Custom instructions passed to Gemini during transcription and refinement.</p>
+          </div>
+
+          <!-- Test Button -->
+          <button class="primary-btn wide-btn" id="test-api-btn">
+            <i data-lucide="check-circle-2"></i> Validate API Key
+          </button>
+          <div class="test-feedback" id="test-feedback"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="secondary-btn" id="clear-api-btn">Clear API Key</button>
+          <button class="primary-btn" id="save-settings-btn">Save Configurations</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript App -->
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
