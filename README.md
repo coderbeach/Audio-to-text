@@ -1,59 +1,79 @@
-# VaniScribe | Indian Accent AI Voice Transcriber
+# 🎤 VaniScribe — Indian Accent AI Voice Transcriber
 
-VaniScribe is a premium, glassmorphic web application optimized specifically for converting voice recordings, audio messages, and audio files into highly accurate text. It is designed to navigate the subtle nuances, vocabulary, slang, numbers (e.g., Lakhs and Crores), and speech variations typical of **Indian English and regional accents/languages** (Hinglish, Hindi, Tamil, Telugu, Kannada, etc.).
+<p align="center">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5 Badge">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3 Badge">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript Badge">
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite Badge">
+  <img src="https://img.shields.io/badge/Google_Gemini-8E75C2?style=for-the-badge&logo=google-gemini&logoColor=white" alt="Gemini Badge">
+</p>
 
----
-
-## 🌟 Core Features
-
-1. **Hybrid Speech Architecture:**
-   - **Real-Time Dictation (Free Mode):** Uses the browser's native **Web Speech API** (`SpeechRecognition`) for instant, zero-latency streaming text directly from your microphone. Highly responsive.
-   - **High-Fidelity AI Uploads (Premium Mode):** Upload custom audio files (`.mp3`, `.wav`, `.m4a`, `.ogg`, `.webm`) directly. VaniScribe converts the file and streams it directly to the Gemini API (`gemini-2.0-flash` or `gemini-1.5-pro`) for zero-error acoustic transcription.
-2. **Indian Accent AI Refiner:**
-   - A dedicated **AI Refine** button. Spoken dictations containing colloquial expressions, formatting quirks, or typical accent mishearings (e.g., confusing "crore" with "crow" or "Rahul" with "rawhide") are instantly polished into correct spelling, proper sentence structure, and precise punctuation.
-3. **Context Keyword Hints:**
-   - Enter custom keywords or names (e.g., "Nisarga", "Aadhaar", "INR") in the context inputs. VaniScribe passes these context tokens directly to the AI, ensuring perfect spelling of rare terms and local names.
-4. **Hinglish & Regional Translators:**
-   - Directly translate bilingual scripts (like Hinglish - Hindi written with English characters, or direct Devanagari Hindi) into clean, standard English.
-5. **Interactive Audio Visualizer:**
-   - Web Audio API canvas visualizer displaying a fluid sound wave reacting to your spoken voice in real-time.
-6. **Polished Export Suite:**
-   - Clipboard Copy with one click.
-   - Read Aloud (Text-To-Speech) utilizing native Indian voice sets.
-   - File downloads: Download text transcripts (`.txt`) or standard subtitle block files (`.srt`).
+**VaniScribe** (वाणीScribe) is a premium, glassmorphic web application optimized specifically for converting voice recordings, audio messages, and uploaded audio files into highly accurate text. It is custom-tailored to handle the subtle acoustic patterns, pronunciations, vocabulary, shorthand units (e.g. *Lakhs* and *Crores*), and bilingual code-switching (e.g. *Hinglish*) typical of **Indian English and regional languages**.
 
 ---
 
-## 🚀 Setting Up Locally
+## 🌟 Key Features
 
-To comply with modern browser security standards, microphone permissions (`getUserMedia` and `SpeechRecognition`) are strictly limited to secure contexts (`https://` or `http://localhost`). Double-clicking a static HTML file from your hard drive (`file://` protocol) will block microphone access in most browsers.
-
-VaniScribe includes a local **Vite dev server** to serve the application on `http://localhost` instantly:
-
-### Prerequisites
-* [Node.js](https://nodejs.org/) (v18+)
-
-### Steps to Run
-1. Open your terminal and navigate to the `vani-scribe` directory:
-   ```bash
-   cd vani-scribe
-   ```
-2. Install the lightweight developer dependency (Vite):
-   ```bash
-   npm install
-   ```
-3. Boot the development server:
-   ```bash
-   npm run dev
-   ```
-4. Click the link shown in your terminal (usually `http://localhost:5173`) to launch VaniScribe!
+*   **🎤 Real-Time Dictation (Free Mode):** Powered by the browser's native `SpeechRecognition` API (Web Speech API). Get instant, zero-latency streaming text directly from your microphone.
+*   **🧠 Advanced Indian Accent AI Refiner:** Integrates with the Google Gemini API to polish transcriptions. It automatically corrects phonetically misheard Indian names, locations, and units (e.g. confusing "crore" with "crow", "lakh" with "lack", "Aadhaar", or local names like "Nisarga" and "Ananya").
+*   **📁 Drag & Drop File Uploads:** Upload pre-recorded audio messages (`.mp3`, `.wav`, `.m4a`, `.ogg`, `.webm` up to 20MB). Transcribe the entire file using Gemini's native multimodal audio understanding.
+*   **💬 Hinglish & Regional Translators:** Speak in Hindi, Hinglish, or regional languages (Tamil, Telugu, Bengali, Kannada, Marathi, etc.) and translate the transcription into standard English with one click.
+*   **🌊 Dynamic Audio Waveform:** A Canvas-based visualizer that utilizes the Web Audio API to draw real-time fluid waves reacting directly to the pitch and volume of your spoken voice.
+*   **💾 Professional Export Panel:**
+    *   **TXT:** Download raw transcripts instantly.
+    *   **SRT:** Download timed subtitle files automatically calculated from transcription text breaks.
+    *   **Read Aloud:** Text-to-Speech (TTS) reader with natural-sounding Indian accent voice sets.
 
 ---
 
-## 🔑 Activating Premium AI Features
+## 🛠️ Technology Stack
 
-To unlock file uploads and AI Refinement, you will need a **Gemini API Key**:
-1. Visit **[Google AI Studio](https://aistudio.google.com/)** and sign in.
-2. Click **Create API Key**.
-3. Copy the key, open VaniScribe, click the **Settings Gear Icon** in the top right, paste your key, and click **Save Configurations**.
-4. *Note:* Your key is stored strictly in your browser's private local storage (`localStorage`) and is sent directly to Google's API endpoints. No server logs or third-party relays are used.
+*   **Frontend Structure:** Semantic HTML5
+*   **Styling & UI:** Vanilla CSS3 (Custom properties, dark mode first theme, HSL palette, CSS glassmorphism, responsive grid)
+*   **Logic & Web APIs:** Vanilla JavaScript ES6 (Web Audio API, Canvas API, MediaRecorder, Web Speech API, LocalStorage configurations)
+*   **AI Engine:** Google Gemini Developer REST API (`gemini-2.0-flash`)
+*   **Dev Server:** Vite
+
+---
+
+## 🚀 Local Installation & Quickstart
+
+Modern web browsers enforce strict security rules that disable microphone access (`getUserMedia` and `SpeechRecognition`) on unsecure contexts. Therefore, double-clicking the static `index.html` file from a local folder (`file://`) will block microphone permissions. 
+
+Use the local Vite server to serve the page securely on `http://localhost`:
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/coderbeach/Audio-to-text.git
+    cd Audio-to-text
+    ```
+2.  **Install development server dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Launch the local dev server:**
+    ```bash
+    npm run dev
+    ```
+4.  **Open the application:**
+    Open [http://localhost:5173/](http://localhost:5173/) in your web browser.
+
+---
+
+## 🔑 Activating Advanced AI Features
+
+To unlock file upload transcriptions, translation, and smart accent refinement, you can use a **Gemini API Key**:
+
+1.  Go to **[Google AI Studio](https://aistudio.google.com/)** and sign in.
+2.  Click **Create API Key**.
+3.  Copy your key.
+4.  Open VaniScribe, click the **Settings Gear Icon** in the top right, paste your key, and click **Save Configurations**.
+
+> [!NOTE]
+> **Privacy First:** Your API key is stored locally in your browser's private storage (`localStorage`) and sent directly to Google's API endpoints. No proxy servers, relays, or databases are used, ensuring your voice data remains completely private.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
