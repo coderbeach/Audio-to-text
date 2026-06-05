@@ -11,6 +11,11 @@
 **VaniScribe** (वाणीScribe) is a premium, glassmorphic web application optimized specifically for converting voice recordings, audio messages, and uploaded audio files into highly accurate text. It is custom-tailored to handle the subtle acoustic patterns, pronunciations, vocabulary, shorthand units (e.g. *Lakhs* and *Crores*), and bilingual code-switching (e.g. *Hinglish*) typical of **Indian English and regional languages**.
 
 ---
+## 🌐 Live Demo
+
+🔗 audio-to-text-eight-beta.vercel.app
+
+Explore the platform using the demo credentials provided below.
 
 ## 🌟 Key Features
 
